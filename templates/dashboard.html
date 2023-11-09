@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h2>Dashboard</h2>
+        <form action="/dashboard" method="get">
+            <label for="month_year">Month and Year:</label>
+            <select name="month_year" id="month_year">
+                <option value="0-0">All month and year</option>
+                {% for year in range(2023, 2025) %} {# Годы с 2023 по 2024 #}
+                    {% for month in range(1, 13) %} {# Месяцы с января (1) до декабря (12) #}
+                        <option value="{{ month }}-{{ year }}">{{ month }}/{{ year }}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <button type="submit">Apply Filter</button>
+        </form>
+
+        <h2>Summary</h2>
+        <table>
+            <tr>
+                <th>Income</th>
+                <th>Expenses</th>
+                <th>Delta</th>
+            </tr>
+            <tr>
+                <td>{{ income }}</td>
+                <td>{{ expenses }}</td>
+                <td>{{ delta }}</td>                
+            </tr>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Add Category</h2>
+        <form method="POST">
+            <label for="name">Category Name</label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="is_income">Income</label>
+            <input type="radio" name="is_income" value="true" id="is_income" required>
+            <label for="is_income">Expense</label>
+            <input type="radio" name="is_income" value="false" id="is_expense" required>
+
+            <button type="submit">Add Category</button>
+        </form>
+
+        <h2>Existing Categories</h2>
+        <table>
+            <tr>
+                <th>Category Name</th>
+                <th>Income/Expense</th>
+                <th>Action</th>
+            </tr>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                    <td>{{ "Income" if category.is_income else "Expense" }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('delete_category', id=category.id) }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
